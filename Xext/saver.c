@@ -270,8 +270,9 @@ setEventMask(ScreenPtr pScreen, ClientPtr client, unsigned long mask)
             pEv->client = client;
             pEv->pScreen = pScreen;
             pEv->resource = FakeClientID(client->index);
-            if (!AddResource(pEv->resource, SaverEventType, (void *) pEv))
-                return FALSE;
+            if (!AddResource(pEv->resource, SaverEventType, (void *)pEv)) {
+              return FALSE;
+            }
         }
         pEv->mask = mask;
     }
@@ -604,12 +605,12 @@ ScreenSaverHandle(ScreenPtr pScreen, int xstate, Bool force)
     case SCREEN_SAVER_CYCLE:
         state = ScreenSaverCycle;
         pPriv = GetScreenPrivate(pScreen);
-        if (pPriv && pPriv->hasWindow)
-            ret = TRUE;
-
+        if (pPriv && pPriv->hasWindow) {
+          ret = TRUE;
+        }
     }
 #ifdef XINERAMA
-    if (noPanoramiXExtension || !pScreen->myNum)
+    if (noPanoramiXExtension || !pScreen->myNum) {
 #endif /* XINERAMA */
     {
         SendScreenSaverNotify(pScreen, state, force);
@@ -1006,9 +1007,9 @@ ScreenSaverSetAttributes(ClientPtr client, xScreenSaverSetAttributesReq *stuff)
             *values++ = (CARD32) *pVlist;
             break;
         case CWOverrideRedirect:
-            if (!(stuff->mask & CWOverrideRedirect))
+            if (!(stuff->mask & CWOverrideRedirect)) {
                 pVlist--;
-            else {
+            } else {
                 unsigned long val = (BOOL) * pVlist;
                 if ((val != xTrue) && (val != xFalse)) {
                     ret = BadValue;
@@ -1087,10 +1088,12 @@ ScreenSaverUnsetAttributes(ClientPtr client, Drawable drawable)
 {
     DrawablePtr pDraw;
     int rc = dixLookupDrawable(&pDraw, drawable, client, 0, DixGetAttrAccess);
-    if (rc != Success)
+    if (rc != Success) {
         return rc;
+    }
 
     ScreenSaverScreenPrivatePtr pPriv = GetScreenPrivate(pDraw->pScreen);
+
     if (pPriv && pPriv->attr && pPriv->attr->client == client) {
         FreeResource(pPriv->attr->resource, AttrType);
         FreeScreenAttr(pPriv->attr);
@@ -1144,8 +1147,9 @@ ProcScreenSaverSetAttributes(ClientPtr client)
                 status = dixLookupResourceByType((void **) &backPix, tmp,
                                                  XRT_PIXMAP, client,
                                                  DixReadAccess);
-                if (status != Success)
-                    return status;
+                if (status != Success) {
+                  return status;
+                }
             }
         }
 
@@ -1156,8 +1160,9 @@ ProcScreenSaverSetAttributes(ClientPtr client)
                 status = dixLookupResourceByType((void **) &bordPix, tmp,
                                                  XRT_PIXMAP, client,
                                                  DixReadAccess);
-                if (status != Success)
-                    return status;
+                if (status != Success) {
+                  return status;
+                }
             }
         }
 
@@ -1168,8 +1173,9 @@ ProcScreenSaverSetAttributes(ClientPtr client)
                 status = dixLookupResourceByType((void **) &cmap, tmp,
                                                  XRT_COLORMAP, client,
                                                  DixReadAccess);
-                if (status != Success)
-                    return status;
+                if (status != Success) {
+                  return status;
+                }
             }
         }
 
@@ -1210,8 +1216,9 @@ ProcScreenSaverUnsetAttributes(ClientPtr client)
 
         int rc = dixLookupResourceByClass((void **) &draw, stuff->drawable,
                                       XRC_DRAWABLE, client, DixWriteAccess);
-        if (rc != Success)
-            return (rc == BadValue) ? BadDrawable : rc;
+        if (rc != Success) {
+          return (rc == BadValue) ? BadDrawable : rc;
+        }
 
         for (i = PanoramiXNumScreens - 1; i > 0; i--) {
             ScreenSaverUnsetAttributes(client, draw->info[i].id);
