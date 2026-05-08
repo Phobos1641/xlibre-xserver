@@ -29,8 +29,15 @@ build_meson() {
         clone_source "$pkgname" "$url" "$ref"
         (
             cd $pkgname
+            echo "=== first meson call: build"
+            pwd
             meson "$@" build -Dprefix=$X11_PREFIX
-            ninja -j${FDO_CI_CONCURRENT:-4} -C build install
+            echo "=== second meson call: install into destdir"
+            pwd
+            (cd build && DESTDIR=/home/runner/pkg/$pkgname meson install)
+            echo "=== third meson call: install into host"
+            pwd
+            (cd build && meson install)
         )
         touch $X11_PREFIX/$pkgname.DONE
     fi
@@ -52,6 +59,7 @@ build_ac() {
             cd $pkgname
             ./autogen.sh --prefix=$X11_INSTALL_PREFIX
             make -j${FDO_CI_CONCURRENT:-4} install
+            make -j${FDO_CI_CONCURRENT:-4} DESTDIR=/home/runner/pkg/$pkgname install
         )
         touch $X11_PREFIX/$pkgname.DONE
     fi
@@ -92,6 +100,7 @@ build_ac_xts() {
                 make -j${FDO_CI_CONCURRENT:-4} install tetexec.cfg
             else
                 xvfb-run make -j${FDO_CI_CONCURRENT:-4} install tetexec.cfg
+                xvfb-run make -j${FDO_CI_CONCURRENT:-4} DESTDIR=/home/runner/pkg/$pkgname install tetexec.cfg
             fi
         )
         touch $X11_PREFIX/$pkgname.DONE
