@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo "==== $0: starting Xserver build and test"
+
 set -e
 
 . .github/scripts/util.sh
@@ -20,12 +22,38 @@ echo "=== MESON_BUILDDIR=$MESON_BUILDDIR"
 export XTEST_DIR="$X11_BUILD_DIR/xts"
 export PIGLIT_DIR="$X11_BUILD_DIR/piglit"
 
-.github/scripts/ubuntu/install-prereq.sh
+(
+    mkdir -p $X11_BUILD_DIR
+    cd $X11_BUILD_DIR
 
+    rm -f $X11_PREFIX/xorgproto.DONE
+    build_meson   xorgproto         $(fdo_mirror xorgproto)                    $PKG_XORGPROTO_REF
+
+    echo "=== going to clone piglit ... my cwd is"
+    pwd
+    clone_source piglit $(fdo_mirror piglit)  $PKG_PIGLIT_REF
+
+    rm -f $X11_PREFIX/xts.DONE
+    build_ac_xts  xts   $(fdo_mirror xts)     $PKG_XTS_REF
+#    clone_source  xts   $(fdo_mirror xts)     $PKG_XTS_REF
+)
+
+echo ": $X11_BUILD_DIR"
+ls -la $X11_BUILD_DIR
+echo ": $PIGLIT_DIR"
+ls -la $PIGLIT_DIR
+echo ": $XTEST_DIR"
+ls -la $XTEST_DIR
+
+mkdir -p $X11_BUILD_DIR/piglit
+
+echo "=== now calling meson-build.sh"
 .github/scripts/meson-build.sh
 
 echo '[xts]' > $X11_BUILD_DIR/piglit/piglit.conf
 echo "path=$X11_BUILD_DIR/xts" >> $X11_BUILD_DIR/piglit/piglit.conf
+
+echo "=== now calling meson test"
 
 meson test -C "$MESON_BUILDDIR" --print-errorlogs
 

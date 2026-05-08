@@ -15,6 +15,6 @@ build_meson   libxcvt           $(fdo_mirror libxcvt)                      $PKG_
 build_meson   xorgproto         $(fdo_mirror xorgproto)                    $PKG_XORGPROTO_REF
 
 # really must be build via autoconf instead of meson, otherwise piglit wont find the test programs
-build_ac_xts  xts               $(fdo_mirror xts)                          $PKG_XTS_REF
+#build_ac_xts  xts               $(fdo_mirror xts)                          $PKG_XTS_REF
 
-clone_source piglit             $(fdo_mirror piglit)                       $PKG_PIGLIT_REF
+#clone_source piglit             $(fdo_mirror piglit)                       $PKG_PIGLIT_REF

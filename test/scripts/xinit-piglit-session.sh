@@ -22,7 +22,10 @@ if test "x$XTEST_DIR" = "x"; then
     exit 1
 fi
 
+echo "=== PIGLIT_DIR=$PIGLIT_DIR"
 cd $PIGLIT_DIR
+
+ls -la
 
 # Skip some tests that are failing at the time of importing the script.
 #    "REPORT: min_bounds, rbearing was 0, expecting 2"
