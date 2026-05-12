@@ -9,6 +9,10 @@ Darwin) export FDO_CI_CONCURRENT=`sysctl -n hw.logicalcpu` ;;
 Linux) export FDO_CI_CONCURRENT=`nproc` ;;
 esac
 
+echo "== showing $X11_PREFIX/bin =="
+ls -la $X11_PREFIX/bin
+echo "== =="
+
 #export PATH="$X11_PREFIX/bin:$PATH"
 export PATH="$PATH:$X11_PREFIX/bin"
 #export PKG_CONFIG_PATH="$X11_PREFIX/lib/x86_64-linux-gnu/pkgconfig:$X11_PREFIX/lib/pkgconfig:$X11_PREFIX/share/pkgconfig:$PKG_CONFIG_PATH"
