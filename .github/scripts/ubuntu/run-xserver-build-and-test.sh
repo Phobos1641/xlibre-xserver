@@ -23,6 +23,8 @@ export XTEST_DIR="$X11_BUILD_DIR/xts"
 export PIGLIT_DIR="$X11_BUILD_DIR/piglit"
 
 (
+    rm $X11_PREFIX/*.DONE
+
     mkdir -p $X11_BUILD_DIR
     cd $X11_BUILD_DIR
 
