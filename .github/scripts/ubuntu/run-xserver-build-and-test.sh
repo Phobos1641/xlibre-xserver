@@ -4,6 +4,12 @@ set -e
 
 # . .github/scripts/util.sh
 
+echo "STEP1 X11_BUILD_DIR=$X11_BUILD_DIR"
+
+. .github/scripts/conf.sh
+
+echo "STEP2 X11_BUILD_DIR=$X11_BUILD_DIR"
+
 if [ ! "$X11_BUILD_DIR" ]; then
     echo "missing X11_BUILD_DIR" >&2
     exit 1
