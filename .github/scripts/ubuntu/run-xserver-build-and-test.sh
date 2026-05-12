@@ -5,10 +5,16 @@ set -e
 # . .github/scripts/util.sh
 
 echo "STEP1 X11_BUILD_DIR=$X11_BUILD_DIR"
+echo "STEP1 X11_PREFIX=$X11_PREFIX"
+echo "STEP1 PATH=$PATH"
+echo "STEP1 PKG_CONFIG_PATH=$PKG_CONFIG_PATH"
 
 . .github/scripts/conf.sh
 
 echo "STEP2 X11_BUILD_DIR=$X11_BUILD_DIR"
+echo "STEP2 X11_PREFIX=$X11_PREFIX"
+echo "STEP2 PATH=$PATH"
+echo "STEP2 PKG_CONFIG_PATH=$PKG_CONFIG_PATH"
 
 if [ ! "$X11_BUILD_DIR" ]; then
     echo "missing X11_BUILD_DIR" >&2
