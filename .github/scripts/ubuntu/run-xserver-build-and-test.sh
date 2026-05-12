@@ -9,7 +9,7 @@ echo "STEP1 X11_PREFIX=$X11_PREFIX"
 echo "STEP1 PATH=$PATH"
 echo "STEP1 PKG_CONFIG_PATH=$PKG_CONFIG_PATH"
 
-. .github/scripts/conf.sh
+. .github/scripts/conf-2.sh
 
 echo "STEP2 X11_BUILD_DIR=$X11_BUILD_DIR"
 echo "STEP2 X11_PREFIX=$X11_PREFIX"
