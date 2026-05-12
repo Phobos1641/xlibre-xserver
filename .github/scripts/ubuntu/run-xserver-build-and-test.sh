@@ -2,7 +2,7 @@
 
 set -e
 
-. .github/scripts/util.sh
+# . .github/scripts/util.sh
 
 if [ ! "$X11_BUILD_DIR" ]; then
     echo "missing X11_BUILD_DIR" >&2
