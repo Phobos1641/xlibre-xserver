@@ -36,6 +36,8 @@ export PIGLIT_DIR="$X11_BUILD_DIR/piglit"
 
 .github/scripts/meson-build.sh
 
+ls -la $X11_PREFIX/bin
+
 echo '[xts]' > $X11_BUILD_DIR/piglit/piglit.conf
 echo "path=$X11_BUILD_DIR/xts" >> $X11_BUILD_DIR/piglit/piglit.conf
 

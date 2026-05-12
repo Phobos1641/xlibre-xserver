@@ -9,9 +9,9 @@ Darwin) export FDO_CI_CONCURRENT=`sysctl -n hw.logicalcpu` ;;
 Linux) export FDO_CI_CONCURRENT=`nproc` ;;
 esac
 
-echo "== showing $X11_PREFIX/bin =="
-ls -la $X11_PREFIX/bin
-echo "== =="
+#echo "== showing $X11_PREFIX/bin =="
+#ls -la $X11_PREFIX/bin
+#echo "== =="
 
 #export PATH="$X11_PREFIX/bin:$PATH"
 export PATH="$PATH:$X11_PREFIX/bin"
